@@ -25,4 +25,5 @@ const Modal: React.FC<ModalProps> = ({ contact, onClose, onDelete }) => (
     </div>
 );
 
+
 export default Modal;
