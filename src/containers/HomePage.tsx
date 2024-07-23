@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
@@ -7,9 +7,9 @@ import ContactList from '../components/ContactList';
 import Modal from '../components/Modal';
 
 const HomePage: React.FC = () => {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { contacts, status } = useSelector((state: RootState) => state.contacts);
-    const [selectedContact, setSelectedContact] = React.useState<any>(null);
+    const [selectedContact, setSelectedContact] = useState<null | typeof contacts[0]>(null);
 
     useEffect(() => {
         if (status === 'idle') {
@@ -22,9 +22,7 @@ const HomePage: React.FC = () => {
         if (contact) setSelectedContact(contact);
     };
 
-    const handleCloseModal = () => {
-        setSelectedContact(null);
-    };
+    const handleCloseModal = () => setSelectedContact(null);
 
     const handleDeleteContact = (id: string) => {
         dispatch(deleteContact(id));
@@ -49,6 +47,5 @@ const HomePage: React.FC = () => {
         </div>
     );
 };
-
 
 export default HomePage;
